@@ -34,6 +34,9 @@ Node::~Node() {}
 void Node::upMove(priority_queue<Node> &frontier) {
     if(blank.first != 0) {
         Node child = Node(this);
+        int temp = child.getGCost();
+        temp++;
+        child.setGCost(temp);
         swap(child.puzzle[blank.first][blank.second], 
             child.puzzle[blank.first - 1][blank.second]);
         child.blank.first -= 1;
@@ -45,6 +48,9 @@ void Node::upMove(priority_queue<Node> &frontier) {
 void Node::downMove(priority_queue<Node> &frontier) {
     if(blank.first != 2) {
         Node child = Node(this);
+        int temp = child.getGCost();
+        temp++;
+        child.setGCost(temp);
         swap(child.puzzle[blank.first][blank.second], 
             child.puzzle[blank.first + 1][blank.second]);
         child.blank.first += 1;
@@ -56,6 +62,9 @@ void Node::downMove(priority_queue<Node> &frontier) {
 void Node::leftMove(priority_queue<Node> &frontier) {
     if(blank.second != 0) {
         Node child = Node(this);
+        int temp = child.getGCost();
+        temp++;
+        child.setGCost(temp);
         swap(child.puzzle[blank.first][blank.second], 
             child.puzzle[blank.first][blank.second - 1]);
         child.blank.second -= 1;
@@ -67,6 +76,9 @@ void Node::leftMove(priority_queue<Node> &frontier) {
 void Node::rightMove(priority_queue<Node> &frontier) {
     if(blank.second != 0) {
         Node child = Node(this);
+        int temp = child.getGCost();
+        temp++;
+        child.setGCost(temp);
         swap(child.puzzle[blank.first][blank.second], 
             child.puzzle[blank.first][blank.second + 1]);
         child.blank.second += 1;
@@ -74,12 +86,6 @@ void Node::rightMove(priority_queue<Node> &frontier) {
         frontier.push(child);
     }
 }
-
-void Node::setgCost(double g) { gCost = g; }
-void Node::sethCost(double h) { hCost = h; }
-double Node::getFCost() { return gCost + hCost; }
-
-void Node::setPuzzle(vector<vector<int>> p) { puzzle = p; }
 
 void Node::setBlank() {
   for (int i = 0; i < 3; i++) {
@@ -172,4 +178,19 @@ int main() {
     }
     */
     state.printPuzzle();
+    state.rightMove(frontier);
+    Node laserJet = frontier.top();
+    cout<<"\n";
+    laserJet.printPuzzle();
+    cout<<"\n";
+    laserJet.upMove(frontier);
+    laserJet = frontier.top();
+    cout<<"\n";
+    laserJet.printPuzzle();
+    cout<<"\n";
+    laserJet.leftMove(frontier);
+    laserJet = frontier.top();
+    cout<<"\n";
+    laserJet.printPuzzle();
+    cout<<"\n";
 }
