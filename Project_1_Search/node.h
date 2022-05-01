@@ -21,11 +21,11 @@ private:
         {4, 5, 6}, 
         {7, 8, 0}};                                     // Win condition
     bool visited;
-    double gCost = 0.0;                                 // Cost from initial state to current
-    double hCost = 0.0;                                 // Hueristic cost
-    double fCost = 0.0;                                 // Total cost of state
+    double gCost;                                       // Cost from initial state to current
+    double hCost;                                       // Hueristic cost
+    double fCost;                                       // Total cost of state
     Node *parent;                                       // Pointer to parent node
-    pair<int,int> blank (2,1);                              // Coord of blank tile
+    pair<int,int> blank;                                // Coord of blank tile
 public:
     Node();
     Node(Node *n);
@@ -46,6 +46,9 @@ public:
     Node UCSearch(priority_queue<Node> &frontier);
     Node aStarMT(priority_queue<Node> &frontier);
     Node aStarED(priority_queue<Node> &frontier);
+    bool operator<(const Node& n) const {
+    return fCost < n.fCost;
+}
 };
 
 #endif

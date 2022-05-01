@@ -1,8 +1,3 @@
-#include <iostream>
-#include <vector>
-#include <queue>
-#include <string>
-#include <cmath>
 #include "node.h"
 
 using namespace std;
@@ -15,10 +10,12 @@ using namespace std;
 
 Node::Node() {
     visited = false;
-    gCost = 0;
-    hCost = 0;
-    fCost = 0;
+    gCost = 1.0;
+    hCost = 0.0;
+    fCost = 0.0;
     parent = nullptr;
+    blank.first = 2;
+    blank.second = 1;
 }
 
 Node::Node(Node *n) {
@@ -28,6 +25,8 @@ Node::Node(Node *n) {
     hCost = n->hCost;
     fCost = n->fCost;
     parent = n;
+    blank.first = n->blank.first;
+    blank.second = n->blank.second;
 }
 
 Node::~Node() {}
@@ -65,7 +64,7 @@ void Node::leftMove(priority_queue<Node> &frontier) {
     }
 }
 
-void Node::leftMove(priority_queue<Node> &frontier) {
+void Node::rightMove(priority_queue<Node> &frontier) {
     if(blank.second != 0) {
         Node child = Node(this);
         swap(child.puzzle[blank.first][blank.second], 
@@ -117,6 +116,11 @@ bool Node::checkWin() {
 
 bool Node::bVisited() { return visited; }
 void Node::sVisited() { visited = true; }
+
+
+Node Node::UCSearch(priority_queue<Node> &frontier) {}
+Node Node::aStarMT(priority_queue<Node> &frontier) {}
+Node Node::aStarED(priority_queue<Node> &frontier) {}
 
 int main() {
     int ans = 1;
