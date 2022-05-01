@@ -41,6 +41,7 @@ void Node::upMove(priority_queue<Node> &frontier) {
             child.puzzle[blank.first - 1][blank.second]);
         child.blank.first -= 1;
         cout<< blank.first <<blank.second;
+        frontier.pop();
         frontier.push(child);
     }
 }
@@ -55,6 +56,7 @@ void Node::downMove(priority_queue<Node> &frontier) {
             child.puzzle[blank.first + 1][blank.second]);
         child.blank.first += 1;
         cout<< blank.first <<blank.second;
+        frontier.pop();
         frontier.push(child);
     }
 }
@@ -69,6 +71,7 @@ void Node::leftMove(priority_queue<Node> &frontier) {
             child.puzzle[blank.first][blank.second - 1]);
         child.blank.second -= 1;
         cout<< blank.first <<blank.second;
+        frontier.pop();
         frontier.push(child);
     }
 }
@@ -83,6 +86,7 @@ void Node::rightMove(priority_queue<Node> &frontier) {
             child.puzzle[blank.first][blank.second + 1]);
         child.blank.second += 1;
         cout<< blank.first <<blank.second;
+        frontier.pop();
         frontier.push(child);
     }
 }
@@ -155,8 +159,6 @@ int main() {
         state.setBlank();
         pTemp.clear();
     }
-
-    frontier.push(state);
     /*
     cout << "Enter your choice of algorithm:\n"
         << "1. Uniform Cost Search\n"
