@@ -7,6 +7,7 @@ using namespace std;
 //*Implement Uniform Cost Search
 //*Implement A* with Misplaced Tile hueristic
 //*Implement A* with Euclidean Distance hueristic
+void test(priority_queue<Node> frontier, Node laserJet);
 
 Node::Node() {
     visited = false;
@@ -129,37 +130,61 @@ Node Node::aStarMT(priority_queue<Node> &frontier) {}
 Node Node::aStarED(priority_queue<Node> &frontier) {}
 
 int main() {
-    int ans = 1;
-    Node state = Node();
-    priority_queue<Node> frontier;
-    
-    cout << "Welcome to 862072094 8 puzzle solver.\nType \"1\" to use a default "
-            "puzzle, or \"2\" to enter your own puzzle.\n";
-    cin >> ans;
+  int ans = 1;
+  Node state = Node();
+  priority_queue<Node> frontier;
+  
+  cout << "Welcome to 862072094 8 puzzle solver.\nType \"1\" to use a default "
+          "puzzle, or \"2\" to enter your own puzzle.\n";
+  cin >> ans;
 
-    if (ans == 2) {
-        vector<vector<int>> pTemp;
-        cout << "Enter your puzzle, use a zero to represent the blank tile.\n";
+  if (ans == 2) {
+    vector<vector<int>> pTemp;
+    cout << "Enter your puzzle, use a zero to represent the blank tile.\n";
 
-        for (int i = 0; i < 3; i++) {
-        vector<int> temp;
-        cout << "Enter the numbers for row " << i + 1 << " separately:\n";
-        for (int j = 0; j < 3; j++) {
-            cin >> ans;
-            temp.push_back(ans);
-        }
-        pTemp.push_back(temp);
-        temp.clear();
-        }
-        state.setPuzzle(pTemp);
-        state.setBlank();
-        pTemp.clear();
+    for (int i = 0; i < 3; i++) {
+    vector<int> temp;
+    cout << "Enter the numbers for row " << i + 1 << " separately:\n";
+    for (int j = 0; j < 3; j++) {
+        cin >> ans;
+        temp.push_back(ans);
     }
+    pTemp.push_back(temp);
+    temp.clear();
+    }
+    state.setPuzzle(pTemp);
+    state.setBlank();
+    pTemp.clear();
+  }
 
-    frontier.push(state);
-    Node laserJet = frontier.top();
+  frontier.push(state);
+  Node laserJet = frontier.top();
+  test(frontier, laserJet);
 
-    while(true) {
+  /*
+  cout << "Enter your choice of algorithm:\n"
+       << "1. Uniform Cost Search\n"
+       << "2. A* with the Misplaced Tile hueristic\n"
+       << "3. A* with the Eucledian Distance hueristic\n";
+  cin >> ans;
+
+  switch (ans) {
+  case 1:
+      state.UCSearch(frontier);
+      break;
+  case 2:
+      state.aStarMT(frontier);
+      break;
+  case 3:
+      state.aStarED(frontier);
+      break;
+  }
+  */
+}
+
+void test(priority_queue<Node> frontier, Node laserJet) {
+  while(true) {
+    int ans;
       laserJet = frontier.top();
       laserJet.printBlank();
       cout<<"\n";
@@ -183,24 +208,4 @@ int main() {
         break;
       }
     }
-
-    /*
-    cout << "Enter your choice of algorithm:\n"
-        << "1. Uniform Cost Search\n"
-        << "2. A* with the Misplaced Tile hueristic\n"
-        << "3. A* with the Eucledian Distance hueristic\n";
-    cin >> ans;
-
-    switch (ans) {
-    case 1:
-        state.UCSearch(frontier);
-        break;
-    case 2:
-        state.aStarMT(frontier);
-        break;
-    case 3:
-        state.aStarED(frontier);
-        break;
-    }
-    */
 }
