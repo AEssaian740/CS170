@@ -156,8 +156,7 @@ int main() {
         pTemp.clear();
     }
 
-
-
+    frontier.push(state);
     /*
     cout << "Enter your choice of algorithm:\n"
         << "1. Uniform Cost Search\n"
@@ -177,20 +176,4 @@ int main() {
         break;
     }
     */
-    state.printPuzzle();
-    state.rightMove(frontier);
-    Node laserJet = frontier.top();
-    cout<<"\n";
-    laserJet.printPuzzle();
-    cout<<"\n";
-    laserJet.upMove(frontier);
-    laserJet = frontier.top();
-    cout<<"\n";
-    laserJet.printPuzzle();
-    cout<<"\n";
-    laserJet.leftMove(frontier);
-    laserJet = frontier.top();
-    cout<<"\n";
-    laserJet.printPuzzle();
-    cout<<"\n";
 }
