@@ -40,7 +40,6 @@ void Node::upMove(priority_queue<Node> &frontier) {
         swap(child.puzzle[blank.first][blank.second], 
             child.puzzle[blank.first - 1][blank.second]);
         child.blank.first -= 1;
-        cout<< blank.first <<blank.second;
         frontier.pop();
         frontier.push(child);
     }
@@ -55,7 +54,6 @@ void Node::downMove(priority_queue<Node> &frontier) {
         swap(child.puzzle[blank.first][blank.second], 
             child.puzzle[blank.first + 1][blank.second]);
         child.blank.first += 1;
-        cout<< blank.first <<blank.second;
         frontier.pop();
         frontier.push(child);
     }
@@ -70,7 +68,6 @@ void Node::leftMove(priority_queue<Node> &frontier) {
         swap(child.puzzle[blank.first][blank.second], 
             child.puzzle[blank.first][blank.second - 1]);
         child.blank.second -= 1;
-        cout<< blank.first <<blank.second;
         frontier.pop();
         frontier.push(child);
     }
@@ -85,7 +82,6 @@ void Node::rightMove(priority_queue<Node> &frontier) {
         swap(child.puzzle[blank.first][blank.second], 
             child.puzzle[blank.first][blank.second + 1]);
         child.blank.second += 1;
-        cout<< blank.first <<blank.second;
         frontier.pop();
         frontier.push(child);
     }
@@ -159,6 +155,35 @@ int main() {
         state.setBlank();
         pTemp.clear();
     }
+
+    frontier.push(state);
+    Node laserJet = frontier.top();
+
+    while(true) {
+      laserJet = frontier.top();
+      laserJet.printBlank();
+      cout<<"\n";
+      laserJet.printPuzzle();
+      cout<<"\n";
+
+      cout<< "Choose direction:\n";
+      cin>>ans;
+      switch(ans) {
+        case 1:
+          laserJet.upMove(frontier);
+        break;
+        case 2:
+          laserJet.downMove(frontier);
+        break;
+        case 3:
+          laserJet.leftMove(frontier);
+        break;
+        case 4:
+          laserJet.rightMove(frontier);
+        break;
+      }
+    }
+
     /*
     cout << "Enter your choice of algorithm:\n"
         << "1. Uniform Cost Search\n"

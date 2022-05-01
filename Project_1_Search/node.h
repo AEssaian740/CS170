@@ -44,7 +44,7 @@ public:
     void sVisited();                                            // Sets node visited to true
     void setPuzzle(vector<vector<int>> p) { puzzle = p; }       // Swaps default puzzle with user inputted puzzle
     void setBlank();                                            // Used for user-created puzzles to find the blank tile.
-    int printBlank() {cout<<blank.first<<blank.second;}
+    void printBlank() {cout<<blank.first<<blank.second;}
     void printPuzzle();
     Node UCSearch(priority_queue<Node> &frontier);
     Node aStarMT(priority_queue<Node> &frontier);
