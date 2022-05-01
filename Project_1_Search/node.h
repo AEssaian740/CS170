@@ -8,6 +8,8 @@
 #include <cmath>
 #include <utility>
 
+using namespace std;
+
 class Node {
 private:
     vector<vector<int>> puzzle {
