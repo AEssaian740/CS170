@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <cmath>
+#include <utility>
 
 class Node {
 private:
@@ -22,7 +23,7 @@ private:
     double hCost = 0.0;                                 // Hueristic cost
     double fCost = 0.0;                                 // Total cost of state
     Node *parent;                                       // Pointer to parent node
-    int blank[2] = {2, 1};                              // Coord of blank tile
+    pair<int,int> blank (2,1);                              // Coord of blank tile
 public:
     Node();
     Node(Node *n);

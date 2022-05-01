@@ -30,6 +30,94 @@ Node::Node(Node *n) {
     parent = n;
 }
 
+Node::~Node() {}
+
+void Node::upMove(priority_queue<Node> &frontier) {
+    if(blank.first != 0) {
+        Node child = Node(this);
+        swap(child.puzzle[blank.first][blank.second], 
+            child.puzzle[blank.first - 1][blank.second]);
+        child.blank.first -= 1;
+        cout<< blank.first <<blank.second;
+        frontier.push(child);
+    }
+}
+
+void Node::downMove(priority_queue<Node> &frontier) {
+    if(blank.first != 2) {
+        Node child = Node(this);
+        swap(child.puzzle[blank.first][blank.second], 
+            child.puzzle[blank.first + 1][blank.second]);
+        child.blank.first += 1;
+        cout<< blank.first <<blank.second;
+        frontier.push(child);
+    }
+}
+
+void Node::leftMove(priority_queue<Node> &frontier) {
+    if(blank.second != 0) {
+        Node child = Node(this);
+        swap(child.puzzle[blank.first][blank.second], 
+            child.puzzle[blank.first][blank.second - 1]);
+        child.blank.second -= 1;
+        cout<< blank.first <<blank.second;
+        frontier.push(child);
+    }
+}
+
+void Node::leftMove(priority_queue<Node> &frontier) {
+    if(blank.second != 0) {
+        Node child = Node(this);
+        swap(child.puzzle[blank.first][blank.second], 
+            child.puzzle[blank.first][blank.second + 1]);
+        child.blank.second += 1;
+        cout<< blank.first <<blank.second;
+        frontier.push(child);
+    }
+}
+
+void Node::setgCost(double g) { gCost = g; }
+void Node::sethCost(double h) { hCost = h; }
+double Node::getFCost() { return gCost + hCost; }
+
+void Node::setPuzzle(vector<vector<int>> p) { puzzle = p; }
+
+void Node::setBlank() {
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      if (puzzle[i][j] == 0) {
+        blank.first = i;
+        blank.second = j;
+      }
+    }
+  }
+}
+
+void Node::printPuzzle() {
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      cout << puzzle[i][j];
+      cout << "  ";
+    }
+    cout << "\n";
+  }
+}
+
+bool Node::checkWin() {
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      if (puzzle[i][j] != winCondition[i][j]) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+bool Node::bVisited() { return visited; }
+void Node::sVisited() { visited = true; }
+
 int main() {
     int ans = 1;
     Node state = Node();
@@ -57,6 +145,8 @@ int main() {
         state.setBlank();
         pTemp.clear();
     }
+
+
 
     /*
     cout << "Enter your choice of algorithm:\n"
