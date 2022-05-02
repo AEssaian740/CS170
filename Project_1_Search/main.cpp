@@ -75,7 +75,7 @@ void Node::leftMove(priority_queue<Node> &frontier) {
 }
 
 void Node::rightMove(priority_queue<Node> &frontier) {
-    if(blank.second != 0) {
+    if(blank.second != 2) {
         Node child = Node(this);
         int temp = child.getGCost();
         temp++;
