@@ -7,6 +7,7 @@
 #include <vector>
 #include <cmath>
 #include <utility>
+#include <algorithm>
 
 using namespace std;
 
@@ -22,9 +23,15 @@ private:
         {7, 8, 0}};                                             // Win condition
     vector<Node> visited;
     int gCost;                                                  // Cost from initial state to current
-    double hCost;                                               // Hueristic cost
-    double fCost;                                               // Total cost of state
+    int hCost;                                                  // Hueristic cost
+    int fCost;                                                  // Total cost of state
+    long unsigned int qSize;
+    int nExpanded;
     Node *parent;                                               // Pointer to parent node
+    Node *c1;                                                   // Pointer to child node
+    Node *c2;                                                   // Pointer to child node
+    Node *c3;                                                   // Pointer to child node
+    Node *c4;                                                   // Pointer to child node
     pair<int,int> blank;                                        // Coord of blank tile
 public:
     Node();
@@ -34,23 +41,24 @@ public:
     void downMove(priority_queue<Node> &frontier);              // Moves blank tile down if possible
     void leftMove(priority_queue<Node> &frontier);              // Moves blank tile left if possible
     void rightMove(priority_queue<Node> &frontier);             // Moves blank tile right if possible
-    void setGCost(double g) { gCost = g; }
     void setHCost(int algo);
-    int getGCost() { return gCost; }
     int MTHuer();                                               // Calculates # of misplaced tiles
-    double EDHuer();                                            // Calculates the Euclidian Distance
-    double getHCost() {return hCost;}
-    double getFCost() { return gCost + hCost; }                 // Outputs total cost of state
+    int EDHuer();                                               // Calculates the Euclidian Distance
+    int getGCost() { return gCost; }
+    int getHCost() {return hCost;}
+    int getFCost() { return gCost + hCost; }                    // Outputs total cost of state
+    int getNExp() { return nExpanded; }
+    int getQSize() { return qSize; }
+    Node* getParent() { return parent; }
+    vector<vector<int>> getPuzzle() { return puzzle; }
     bool checkWin();                                            // Checks if the node contains the win condition
     bool checkVisited(Node n, vector<Node> visited);
     void setPuzzle(vector<vector<int>> p) { puzzle = p; }       // Swaps default puzzle with user inputted puzzle
     void setBlank();                                            // Used for user-created puzzles to find the blank tile.
     void printBlank() {cout<<blank.first<<blank.second;}
     void printPuzzle();
-    Node UCSearch(priority_queue<Node> &frontier);
-    Node aStarMT(priority_queue<Node> &frontier);
-    Node aStarED(priority_queue<Node> &frontier);
-    bool operator<(const Node& n) const { return fCost < n.fCost; }
+    Node algorithm(priority_queue<Node> &frontier, int h);
+    bool operator<(const Node& n) const { return fCost > n.fCost; }
 };
 
 #endif
