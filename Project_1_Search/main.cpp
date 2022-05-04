@@ -10,7 +10,6 @@ using namespace std;
 void test(priority_queue<Node> frontier, Node laserJet);
 
 Node::Node() {
-    visited = false;
     gCost = 1.0;
     hCost = 0.0;
     fCost = 0.0;
@@ -21,7 +20,6 @@ Node::Node() {
 
 Node::Node(Node *n) {
     puzzle = n->puzzle;
-    visited = false;
     gCost = n->gCost;
     hCost = n->hCost;
     fCost = n->fCost;

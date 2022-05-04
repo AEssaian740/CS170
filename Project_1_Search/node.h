@@ -13,15 +13,15 @@ using namespace std;
 class Node {
 private:
     vector<vector<int>> puzzle {
-        {8, 6, 7},
-        {2, 5, 4},
-        {3, 0, 1}};                                             // Starting position of puzzle set to 31-move solution
+        {0, 1, 2},
+        {4, 5, 3},
+        {7, 8, 6}};                                             // Default Puzzle Level: Doable
     vector<vector<int>> winCondition{
         {1, 2, 3}, 
         {4, 5, 6}, 
         {7, 8, 0}};                                             // Win condition
-    bool visited;
-    double gCost;                                               // Cost from initial state to current
+    vector<Node> visited;
+    int gCost;                                                  // Cost from initial state to current
     double hCost;                                               // Hueristic cost
     double fCost;                                               // Total cost of state
     Node *parent;                                               // Pointer to parent node
@@ -35,13 +35,14 @@ public:
     void leftMove(priority_queue<Node> &frontier);              // Moves blank tile left if possible
     void rightMove(priority_queue<Node> &frontier);             // Moves blank tile right if possible
     void setGCost(double g) { gCost = g; }
-    void setHCost(double h) { hCost = h; }
-    double getGCost() { return gCost; }
-    double getHCost() { return hCost; }
+    void setHCost(int algo);
+    int getGCost() { return gCost; }
+    int MTHuer();                                               // Calculates # of misplaced tiles
+    double EDHuer();                                            // Calculates the Euclidian Distance
+    double getHCost() {return hCost;}
     double getFCost() { return gCost + hCost; }                 // Outputs total cost of state
-    bool bVisited();                                            // Checks if node has been visited
     bool checkWin();                                            // Checks if the node contains the win condition
-    void sVisited();                                            // Sets node visited to true
+    bool checkVisited(Node n, vector<Node> visited);
     void setPuzzle(vector<vector<int>> p) { puzzle = p; }       // Swaps default puzzle with user inputted puzzle
     void setBlank();                                            // Used for user-created puzzles to find the blank tile.
     void printBlank() {cout<<blank.first<<blank.second;}
