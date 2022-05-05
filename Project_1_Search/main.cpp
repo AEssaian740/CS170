@@ -7,7 +7,7 @@ using namespace std;
 //*[TEST]Implement Uniform Cost Search
 //*Implement A* with Misplaced Tile hueristic
 //*Implement A* with Euclidean Distance hueristic
-void test(Node laserJet);
+void test(Node &laserJet);
 
 Node::Node() {
     gCost = 1;
@@ -197,22 +197,28 @@ Node Node::algorithm(priority_queue<Node> &frontier, int h) {
     temp.nExpanded++;
     temp.setHCost(h);
 
-    
+    if(temp.qSize < frontier.size()) {
+      temp.qSize = frontier.size();
+      cout <<temp.qSize <<endl;
+    }  
+    if(temp.checkWin()) {
+      return temp;
+    }
 
+
+    
     temp.upMove(frontier);
     temp.downMove(frontier);
     temp.leftMove(frontier);
     temp.rightMove(frontier);
 
-
-    if(temp.qSize < frontier.size()) {
-      temp.qSize = frontier.size();
+    if(temp.getGCost() != 1) {
+      cout << "The best state to expand with g(n) = " << temp.getGCost() << " and h(n) = " << temp.getHCost() << " is...\n";
+      temp.printPuzzle();
+      cout << "Expanding this node...\n";
     }
 
     frontier.pop();
-    if(temp.checkWin()) {
-      return temp;
-    }
     visited.push_back(temp);
   }
 
@@ -257,25 +263,9 @@ int main() {
   cin >> ans;
   
   result = Node(state.algorithm(frontier, ans));
-  //test(result);
 
-  if(result.getPuzzle() != state.getPuzzle()) {
-    cout << "Goal!!!\n";
-    cout << "To solve this problem, the search algorithm expanded a total of " <<result.getNExp() << " nodes.\n";
-    cout << "The maximum number of nodes in the queue at any one time: " <<result.getQSize() << ".\n";
-    cout << "The depth of the goal node was " << result.getGCost() << ".\n";
-  }else {
-    cout<< "No solution found!\n";
-  }
-}
-
-void test(Node laserJet) {
-  if(laserJet.getParent() == nullptr) {
-    return;
-  } else {
-    test(laserJet.getParent());
-    cout << "The best state to expand with g(n) = " << laserJet.getGCost() << " and h(n) = " << laserJet.getHCost() << " is...\n";
-    laserJet.printPuzzle();
-    cout << "Expanding this node...\n";
-  }
+  cout << "Goal!!!\n";
+  cout << "To solve this problem, the search algorithm expanded a total of " <<result.getNExp() << " nodes.\n";
+  cout << "The maximum number of nodes in the queue at any one time: " <<result.getQSize() << ".\n";
+  cout << "The depth of the goal node was " << result.getGCost() << ".\n";}
 }
