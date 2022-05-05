@@ -35,6 +35,10 @@ Node::~Node() {}
 
 bool Node::checkVisited(Node n, vector<Node> visited) {
   for(int i = 0; i < visited.size(); i++) {
+    n.printPuzzle();
+    cout<<endl;
+    visited.at(i).printPuzzle();
+    cout<<endl;
     if(n.puzzle == visited.at(i).puzzle) {
       return true;
     } else {
@@ -199,7 +203,6 @@ Node Node::algorithm(priority_queue<Node> &frontier, int h) {
 
     if(temp.qSize < frontier.size()) {
       temp.qSize = frontier.size();
-      cout <<temp.qSize <<endl;
     }  
     if(temp.checkWin()) {
       return temp;

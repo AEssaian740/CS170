@@ -14,9 +14,9 @@ using namespace std;
 class Node {
 private:
     vector<vector<int>> puzzle {
-        {0, 1, 2},
-        {4, 5, 3},
-        {7, 8, 6}};                                             // Default Puzzle Level: Doable
+        {1, 0, 3},
+        {4, 2, 6},
+        {7, 5, 8}};                                             // Default Puzzle Level: Trace Problem
     vector<vector<int>> winCondition{
         {1, 2, 3}, 
         {4, 5, 6}, 
