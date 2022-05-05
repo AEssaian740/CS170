@@ -267,5 +267,5 @@ int main() {
   cout << "Goal!!!\n";
   cout << "To solve this problem, the search algorithm expanded a total of " <<result.getNExp() << " nodes.\n";
   cout << "The maximum number of nodes in the queue at any one time: " <<result.getQSize() << ".\n";
-  cout << "The depth of the goal node was " << result.getGCost() << ".\n";}
+  cout << "The depth of the goal node was " << result.getGCost() << ".\n";
 }
