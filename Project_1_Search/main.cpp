@@ -192,7 +192,6 @@ Node Node::algorithm(priority_queue<Node> &frontier, int h) {
   Node newMove;
   visited.clear();
   s=frontier.top();
-
   s.printPuzzle();
   cout <<endl<<endl;
 
@@ -208,8 +207,6 @@ Node Node::algorithm(priority_queue<Node> &frontier, int h) {
       return temp;
     }
 
-
-    
     temp.upMove(frontier);
     temp.downMove(frontier);
     temp.leftMove(frontier);
@@ -223,6 +220,11 @@ Node Node::algorithm(priority_queue<Node> &frontier, int h) {
 
     frontier.pop();
     visited.push_back(temp);
+
+    if(temp.nExpanded == 9000) {
+      cout << "Over 9000 nodes, exiting search...\n";
+      break;
+    }
   }
 
   return s;
